@@ -1,0 +1,4 @@
+include README.md
+recursive-include octoprint_KasaCloud/templates *
+recursive-include octoprint_KasaCloud/translations *
+recursive-include octoprint_KasaCloud/static *
