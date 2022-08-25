@@ -55,11 +55,24 @@ class KasaCloudPlugin(
         self._logger.info(f"KasaCloud API Token: {self.kasa_api_token}")
 
     def set_device_state(self, state):
+        devices = self.get_devices()
+
+        self._logger.info(devices)
+        self._logger.info(f"Looking for device with alias '{self._settings.get(['device_alias'])}'")
+
+        matching_device = next((device for device in devices if device['alias'] == self._settings.get(['device_alias'])), None)
+
+        if not matching_device:
+            self._logger.info(f"Could not find a device with alias '{self._settings.get(['device_alias'])}'")
+            return
+
+        self._logger.info(f"Setting state to {'on' if state else 'off'}")
+
         url = f'https://wap.tplinkcloud.com?token={self.kasa_api_token}'
         data = { 
             'method' : 'passthrough',
             'params' : {
-                'deviceId' : '8006C93A736C6581C38C98672BA4F5F117ED61FC', #Todo
+                'deviceId' : matching_device['deviceId'],
                 'requestData' : json.dumps({
                     'system' : {
                         'set_relay_state' : {
@@ -79,6 +92,7 @@ class KasaCloudPlugin(
         return {
             'email' : '',
             'password' : '',
+            'device_alias' : ''
         }
 
     ##~~ AssetPlugin mixin
