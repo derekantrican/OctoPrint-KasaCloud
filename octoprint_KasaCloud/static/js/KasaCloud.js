@@ -49,8 +49,14 @@ $(function() {
 			data: JSON.stringify({
 				command: "turnOn"
 			}),
-			contentType: "application/json; charset=UTF-8"
-			});		
+			contentType: "application/json; charset=UTF-8",
+            success: function (responseData) {
+                $('#response').text(`${!responseData.success ? "Error: " : ""}${responseData.message}`);
+            },
+            error: function (errorData) {
+                console.log(errorData);
+                $('#response').text(`Error: ${errorData.responseJSON.error}`);
+            }});
 		}
 
         self.turnOff = function(data) {
@@ -62,8 +68,14 @@ $(function() {
 			data: JSON.stringify({
 				command: "turnOff"
 			}),
-			contentType: "application/json; charset=UTF-8"
-			});		
+			contentType: "application/json; charset=UTF-8",
+            success: function (responseData) {
+                $('#response').text(`${!responseData.success ? "Error: " : ""}${responseData.message}`);
+            },
+            error: function (errorData) {
+                console.log(errorData);
+                $('#response').text(`Error: ${errorData.responseJSON.error}`);
+            }});
 		}
     }
 

@@ -64,7 +64,7 @@ class KasaCloudPlugin(
 
         if not matching_device:
             self._logger.info(f"Could not find a device with alias '{self._settings.get(['device_alias'])}'")
-            return
+            raise Exception(f"Could not find a device with alias '{self._settings.get(['device_alias'])}'")
 
         self._logger.info(f"Setting state to {'on' if state else 'off'}")
 
@@ -107,14 +107,6 @@ class KasaCloudPlugin(
 
     ##~~ SettingsPlugin mixin
 
-    def turn_on(self):
-        self._logger.info('Turning on')
-        self.set_device_state(True)
-
-    def turn_off(self):
-        self._logger.info('Turning off')
-        self.set_device_state(False)
-
     def get_api_commands(self):
         return {
             'turnOn': [],
@@ -122,10 +114,23 @@ class KasaCloudPlugin(
         }
 
     def on_api_command(self, command, data):
-        if command == 'turnOn':
-            self.turn_on()
-        elif command == 'turnOff':
-            self.turn_off()
+        try:
+            if command == 'turnOn':
+                self.set_device_state(True)
+            elif command == 'turnOff':
+                self.set_device_state(False)
+            
+            return {
+                'success' : True,
+                'message' : 'Success!'
+            }
+        except Exception as e:
+            self._logger.info(f"Exception thrown when trying to set device state: {e}")
+            return {
+                'success' : False,
+                'message' : str(e)
+            }
+
 
     ##~~ Softwareupdate hook
 
