@@ -10,4 +10,6 @@ Install via the bundled [Plugin Manager](https://docs.octoprint.org/en/master/bu
 
 After installing, open OctoPrint settings, then go to "Plugins" > "KasaCloud Plugin". The instructions there will help you test it out.
 
+## Future Plans
+
 The end goal of this proof-of-concept is to integrate this work into the more widely used [TP-Link Smartplug plugin](https://github.com/jneilliii/OctoPrint-TPLinkSmartplug).
