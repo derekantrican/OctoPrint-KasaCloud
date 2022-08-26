@@ -21,7 +21,7 @@ class KasaCloudPlugin(
     octoprint.plugin.SimpleApiPlugin
 ):
 
-    EXPIRED_TOKEN_ERROR_CODE = -20651
+    EXPIRED_TOKEN_ERROR_CODE = -20651 #Todo: need to handle expired tokens
     kasa_api_token = ''
 
     def get_kasa_api_token(self):
