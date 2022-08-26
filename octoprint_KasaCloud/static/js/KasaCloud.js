@@ -41,7 +41,10 @@ $(function() {
 		// }
 
         self.turnOn = function(data) {
+            $('#response').text('');
+            
             console.log("Turning on");
+
 			$.ajax({
 			url: API_BASEURL + "plugin/KasaCloud",
 			type: "POST",
@@ -60,8 +63,11 @@ $(function() {
 		}
 
         self.turnOff = function(data) {
+            $('#response').text('');
+
             console.log("Turning off");
-			$.ajax({
+			
+            $.ajax({
 			url: API_BASEURL + "plugin/KasaCloud",
 			type: "POST",
 			dataType: "json",
